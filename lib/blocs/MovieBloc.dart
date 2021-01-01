@@ -13,13 +13,13 @@ class MovieBloc
   MovieBloc() {
     _movieListController = StreamController<ApiResponse<List<Movie>>>();
     _movieRepository = MovieRepository();
-    fetchMovieList();
+    fetchMovieList("");
     fetchTopRatedMovie();
   }
-  fetchMovieList() async {
+  fetchMovieList(String s) async {
     movieListSink.add(ApiResponse.loading('Fetching Movies'));
     try {
-      List<Movie> movies = await _movieRepository.fetchMovieList();
+      List<Movie> movies = await _movieRepository.fetchMovieList(s);
       movieListSink.add(ApiResponse.completed(movies));
     } catch (e) {
       movieListSink.add(ApiResponse.error(e.toString()));
@@ -29,7 +29,6 @@ class MovieBloc
   dispose() {
     _movieListController?.close();
   }
-
    fetchTopRatedMovie() async{
     movieListSink.add(ApiResponse.loading('Fetching movies'));
     try {
