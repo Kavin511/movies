@@ -9,7 +9,7 @@ import 'package:movies/Repository/MoviedetailRepository.dart';
 import 'package:movies/blocs/MovieDetailBloc.dart';
 
 class MovieDetail extends StatefulWidget {
-  Movie movie;
+  int movie;
 
   MovieDetail({this.movie});
 
@@ -19,7 +19,7 @@ class MovieDetail extends StatefulWidget {
 
 class _MovieDetailState extends State<MovieDetail> {
   MovieDetailBloc movieDetailBloc;
-  Movie movie;
+  int movie;
   MovieDetailRepository movieDetailRepository = new MovieDetailRepository();
   Movie detail = new Movie();
   _MovieDetailState({this.movie});
@@ -27,7 +27,7 @@ class _MovieDetailState extends State<MovieDetail> {
   @override
   void initState() {
     super.initState();
-    movieDetailBloc = MovieDetailBloc(movie.id);
+    movieDetailBloc = MovieDetailBloc(movie);
   }
 
   @override
@@ -39,7 +39,7 @@ class _MovieDetailState extends State<MovieDetail> {
       extendBodyBehindAppBar: false,
       body: RefreshIndicator(
         onRefresh: () {
-          return movieDetailBloc.fetchMovieDetail(movie.id);
+          return movieDetailBloc.fetchMovieDetail(movie);
         },
         child: StreamBuilder<ApiResponse<Movie>>(
           stream: movieDetailBloc.movieDetailStream,

@@ -11,7 +11,6 @@ class MovieList extends StatefulWidget {
   // final List<Movie> TopratedmovieList=movieBloc;
   // bool popular_selected=true,action_selected=true,horror_selected=true,drama_selected=true,comedy_selected=true;
   const MovieList({Key key, this.movieList}) : super(key: key);
-
   @override
   _MovieListState createState() => _MovieListState();
 }
@@ -19,8 +18,6 @@ class MovieList extends StatefulWidget {
 class _MovieListState extends State<MovieList> with TickerProviderStateMixin {
   PageController _pageController;
   int initialPage = 0;
-
-
   @override
   void initState() {
     super.initState();
@@ -29,7 +26,6 @@ class _MovieListState extends State<MovieList> with TickerProviderStateMixin {
       initialPage: initialPage,
     );
   }
-
   // Widget MovieSlider(int index) {
   //   // AnimatedBuilder(
   //   //   // animation: _pageController,
@@ -63,7 +59,6 @@ class _MovieListState extends State<MovieList> with TickerProviderStateMixin {
   //     // },
   //   );
   // }
-
   @override
   void dispose() {
     super.dispose();
@@ -86,11 +81,12 @@ class _MovieListState extends State<MovieList> with TickerProviderStateMixin {
             },
             itemCount: widget.movieList.length,
             itemBuilder: (context, index) {
-              return buildMovieSlider(index,size);
+              return  Movie_Card(widget.movieList[index],size);
             },
           ),
         ));
   }
+
 
   Widget buildMovieSlider(int index,Size size) {
     return AnimatedBuilder(

@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:movies/Handlers/Error_occurred.dart';
-import 'file:///D:/C%20files/AndroidStudioProjects/movies/lib/Handlers/List/List_movie.dart';
+import 'package:movies/Handlers/List/List_movie.dart';
 import 'package:movies/Handlers/Loading.dart';
 import 'package:movies/Model/Model.dart';
 import 'package:movies/Networking/Apiresponse.dart';
 import 'package:movies/UI/Movie_detail.dart';
+import 'package:movies/UI/MoviesSearch.dart';
 import 'package:movies/blocs/MovieBloc.dart';
 
 class MovieScreen extends StatefulWidget {
@@ -19,7 +20,6 @@ class _MovieScreenState extends State<MovieScreen> {
   MovieBloc bloc;
   int selected_index;
   final List<String> _options = ['Action', 'Comedy', 'Horror', 'Drama'];
-
   Widget _buildChips() {
     List<Widget> chips = new List();
     for (int i = 0; i < _options.length; i++) {
@@ -48,7 +48,7 @@ class _MovieScreenState extends State<MovieScreen> {
                 bloc.fetchMovieList("18");
               }
             } else {
-              selected_index = i + 1;
+              selected_index =-1;
             }
           });
         },
@@ -60,6 +60,22 @@ class _MovieScreenState extends State<MovieScreen> {
     }
     return ListView(scrollDirection: Axis.horizontal, children: chips);
   }
+  //  Widget _searchWidget() {
+  //  return new  Row(
+  //     children: [
+  //       TextFormField(
+  //         decoration: InputDecoration(
+  //           prefixIcon: Icon(Icons.search),
+  //           hintText: 'Enter movie',
+  //           border: OutlineInputBorder(),
+  //           filled: true,
+  //         ),
+  //
+  //       ),
+  //     ],
+  //   );
+  // }
+  Widget appBarTitle = new Text('Movies');
 
   @override
   void initState() {
@@ -67,25 +83,53 @@ class _MovieScreenState extends State<MovieScreen> {
     bloc = MovieBloc();
   }
 
-  final appBar = AppBar(
-    leading: Icon(
-      CupertinoIcons.film_fill,
-      color: Colors.white,
-    ),
-    title: Text("Movies app"),
-    actions: [
-      IconButton(
-        icon: Icon(Icons.search),
-        onPressed: () {},
-      )
-    ],
-  );
+  Icon actionIcon = new Icon(CupertinoIcons.search);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: appBar,
-      appBar: appBar,
+      appBar: new AppBar(
+        leading: Icon(
+          CupertinoIcons.film,
+          color: Colors.white,
+        ),
+        title: appBarTitle,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: (){
+              Navigator.pushNamed(context, '/search');
+            },
+          ),
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (BuildContext context)=><PopupMenuEntry>[
+              PopupMenuItem(
+                child: ListTile(
+                  trailing: Icon(CupertinoIcons.heart_fill,color: Colors.redAccent,),
+                  title: Text('Wish Lists'),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/wish');
+                    dispose();
+                  },
+                ),
+              ),
+            ],
+          )
+          // PopupMenuButton<String>(
+          //   onSelected: handleClick,
+          //   itemBuilder: (BuildContext context) {
+          //     return {'Wish lists'}.map((String choice) {
+          //       return PopupMenuItem<String>(
+          //         value: choice,
+          //         child: Text(choice),
+          //       );
+          //     }).toList();
+          //   },
+          // ),
+        ],
+      ),
       body: RefreshIndicator(
         onRefresh: () {
           return bloc.fetchMovieList("");
@@ -106,7 +150,22 @@ class _MovieScreenState extends State<MovieScreen> {
                       Container(
                           height: 60,
                           alignment: Alignment.center,
-                          child: _buildChips()),
+                          child: _buildChips(),
+                          // child: Column(
+                          //   children: [
+                          //     // TextFormField(
+                          //     //   decoration: InputDecoration(
+                          //     //     prefixIcon: Icon(Icons.search),
+                          //     //     hintText: 'Enter movie',
+                          //     //     border: OutlineInputBorder(),
+                          //     //     filled: true,
+                          //     //   ),
+                          //     //
+                          //     // ),
+                          //
+                          //   ],
+                          // )
+                      ),
                       MovieList(movieList: snapshot.data.data),
                     ],
                   );
@@ -123,5 +182,13 @@ class _MovieScreenState extends State<MovieScreen> {
         ),
       ),
     );
+  }
+
+
+  void handleClick(String value) {
+    switch (value) {
+      case 'Wish lists':
+        Navigator.pushNamed(context, '/wish');
+    }
   }
 }

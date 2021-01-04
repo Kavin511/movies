@@ -48,7 +48,6 @@ class Movie {
     this.tagline,
     this.runtime,
   });
-
   Movie.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     voteAverag = json['vote_average'];

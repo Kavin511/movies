@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:movies/Model/Model.dart';
 import 'package:movies/UI/Movie_detail.dart';
-
 class Movie_Card extends StatelessWidget {
   final Movie movieList;
   final Size size;
@@ -61,7 +60,7 @@ class Movie_Card extends StatelessWidget {
             ],
           )),
           openBuilder: (context, action) => MovieDetail(
-            movie: this.movieList,
+            movie: this.movieList.id,
           ),
         ),
       ),
