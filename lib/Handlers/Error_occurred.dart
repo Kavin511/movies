@@ -17,7 +17,7 @@ class Error_message extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('images\clapperboard.png',width: 50,height: 50,),
+            Image.asset('images/clapperboard.png',width: 50,height: 50,),
             Text(
               'Check your internet connection',
               textAlign: TextAlign.center,

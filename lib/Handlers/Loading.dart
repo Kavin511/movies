@@ -12,7 +12,7 @@ class Loading extends StatelessWidget
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset('images/clapperboard.png',width: 50,height: 50,),
+          Image.asset('images/popcorn.png',width: 50,height: 50,),
           Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -22,7 +22,7 @@ class Loading extends StatelessWidget
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Cooking movies for you :)!",
+                      "Cooking movies :)",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 22),
                     ),

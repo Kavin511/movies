@@ -28,9 +28,10 @@ class Movie_Card extends StatelessWidget {
               child: Stack(
             children: [
               Container(
+                height: size.height,
                 child: new Image.network(
                   "https://image.tmdb.org/t/p/w342${movieList.posterPath}",
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
               Positioned(

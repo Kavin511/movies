@@ -75,7 +75,9 @@ class _MovieScreenState extends State<MovieScreen> {
   //     ],
   //   );
   // }
-  Widget appBarTitle = new Text('Movies');
+  Widget appBarTitle = new Text('Movies',style: TextStyle(
+    color: Colors.black87
+  ),);
 
   @override
   void initState() {
@@ -90,20 +92,19 @@ class _MovieScreenState extends State<MovieScreen> {
     return Scaffold(
       // appBar: appBar,
       appBar: new AppBar(
-        leading: Icon(
-          CupertinoIcons.film,
-          color: Colors.white,
-        ),
-        title: appBarTitle,
+        backgroundColor: Colors.white,
+        title: new Text('Movies',style: TextStyle(
+            color: Colors.black87
+        )),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search,color: Colors.black87,),
             onPressed: (){
               Navigator.pushNamed(context, '/search');
             },
           ),
           PopupMenuButton(
-            icon: Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert,color: Colors.black87,),
             itemBuilder: (BuildContext context)=><PopupMenuEntry>[
               PopupMenuItem(
                 child: ListTile(
@@ -183,8 +184,6 @@ class _MovieScreenState extends State<MovieScreen> {
       ),
     );
   }
-
-
   void handleClick(String value) {
     switch (value) {
       case 'Wish lists':
